@@ -56,18 +56,12 @@ function App() {
           const resizedDetections = faceapi.resizeResults(detections, displaySize);
   
           canvasRef && canvasRef.current && canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
-          // canvasRef && canvasRef.current && faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
-          // canvasRef && canvasRef.current && faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
+          canvasRef && canvasRef.current && faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
+          canvasRef && canvasRef.current && faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
   
   
           canvasRef.current.getContext('2d').strokeStyle = 'black';
           canvasRef.current.getContext('2d').lineWidth = 50;
-  
-          // draw a red line
-          canvasRef.current.getContext('2d').beginPath();
-          canvasRef.current.getContext('2d').moveTo(detections.landmarks.getLeftEye()[0]._x, detections.landmarks.getLeftEye()[0]._y);
-          canvasRef.current.getContext('2d').lineTo(detections.landmarks.getRightEye()[3]._x, detections.landmarks.getRightEye()[3]._y);
-          canvasRef.current.getContext('2d').stroke();
         }
       }
     }, 100)
@@ -77,13 +71,16 @@ function App() {
   return (
     <div className="App">
       <h1>Face Recognition Webcam</h1>
-      <div style={{ width: "100%", height: "100vh", position: "relative" }}>
+      <div style={{ width: "100%", height: "100vh", position: "relative", margin: "auto" }}>
         <video
+        className='video'
           ref={video}
           autoPlay
           muted
           onPlay={onPlay}
           style={{
+            marginLeft: "auto",
+            marginRight: "auto",
             position: "absolute",
             width: videoWidth,
             height: videoHeight,
